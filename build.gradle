@@ -1,0 +1,43 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.5.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'org.postgresql:postgresql'
+    annotationProcessor 'org.projectlombok:lombok'
+    compile group: 'ma.glasnost.orika', name: 'orika-core', version: '1.5.4'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    // https://mvnrepository.com/artifact/org.telegram/telegrambots
+    compile group: 'org.telegram', name: 'telegrambots', version: '4.9.2'
+    // https://mvnrepository.com/artifact/org.telegram/telegrambotsextensions
+    compile group: 'org.telegram', name: 'telegrambotsextensions', version: '4.9.2'
+
+
+    compile group: 'commons-validator', name: 'commons-validator', version: '1.7'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
