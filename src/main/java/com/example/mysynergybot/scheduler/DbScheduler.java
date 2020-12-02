@@ -15,7 +15,6 @@ import java.util.List;
 @Slf4j
 public class DbScheduler {
 
-    //private final UserDao userDao;
     private final UserService userService;
     private final UserResponseHandler userResponseHandler;
 
@@ -27,8 +26,8 @@ public class DbScheduler {
 
     @Scheduled(cron="${dbscheduler.pickAndSortFinishedGoals.delay}")
     public void NotifyUsersWithOverDueGoals(){
-        List<UserResponseDto> usersWithOverDueGoals = userService.findUsersWithGoalStatus(GoalStatus.OVERDUE);
-        log.info("usersWithGoalStatus list - {}", usersWithOverDueGoals);
+        List<UserResponseDto> usersWithOverDueGoals = userService.findUsersWithGoalStatus(GoalStatus.FAIL);
+        log.info("usersWithGoalStatus list - {}", usersWithOverDueGoals.size());
         userResponseHandler.handle(usersWithOverDueGoals);
 
     }
@@ -39,7 +38,7 @@ public class DbScheduler {
     public void updateUserWithNullTelegramId(){
         List<UserDto> usersWithNullTelegramId = userService.findUsersWithNullTelegramChatId();
         log.info("List UserDtos - {}",usersWithNullTelegramId);
-        List<UserDto> UpdatedUsers = userService.getTelegramIdAndUpdateUser(usersWithNullTelegramId);
+        userService.getTelegramIdAndUpdateUser(usersWithNullTelegramId);
 
     }
 

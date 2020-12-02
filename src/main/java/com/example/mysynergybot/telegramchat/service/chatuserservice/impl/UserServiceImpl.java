@@ -6,10 +6,12 @@ import com.example.mysynergybot.telegramchat.entity.User;
 import com.example.mysynergybot.telegramchat.entity.dto.ParseResultDto;
 import com.example.mysynergybot.telegramchat.entity.dto.UserDto;
 import com.example.mysynergybot.telegramchat.entity.dto.UserResponseDto;
+import com.example.mysynergybot.telegramchat.service.chatuserservice.EmailService;
 import com.example.mysynergybot.telegramchat.service.chatuserservice.ParseService;
 import com.example.mysynergybot.telegramchat.service.chatuserservice.TelegramBotApiService;
 import com.example.mysynergybot.telegramchat.service.chatuserservice.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -22,17 +24,23 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     @Value("${telegram.api.url}")
     private String apiUrl;
     @Value("${telegram.token}")
     private String botToken;
+    @Value("${telegram.username}")
+    private String botUserName;
+    @Value("${telegram.invitation.url}")
+    private transient String url;
 
     private final UserDao userDao;
     private final MapperFacade mapperFacade;
     private final TelegramBotApiService telegramBotApiService;
-    private final ParseService parseService;
+    private final EmailService emailService;
+
 
 
     @Override
@@ -106,11 +114,6 @@ public class UserServiceImpl implements UserService {
         return userDao.findUsersWithGoalStatus(status);
     }
 
-//    @Override
-//    public UserDto getUserByTelegramId(Long telegramId) {
-//        return mapperFacade.map(userDao.findByTelegramChatId(telegramId), UserDto.class);
-//    }
-
     @Override
     public List<UserDto> findUsersWithNullTelegramChatId() {
         return userDao.findUsersWithNullTelegramChatId().stream()
@@ -119,14 +122,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> getTelegramIdAndUpdateUser(List<UserDto> list) {
+    public void getTelegramIdAndUpdateUser(List<UserDto> list) {
         for (UserDto u : list) {
-            String responseString = telegramBotApiService.getUserIdFromTelegram(825619647L, u.getPhone(), u.getFirstName());
-            ParseResultDto parsedDto = parseService.parse(responseString);
-            u.setTelegramChatId(parsedDto.getTelegramId());
+            ParseResultDto parsedUserDto = telegramBotApiService.getUserIdFromTelegram(825619647L, u.getPhone(), u.getFirstName());
+            log.info("parsed user - {}", parsedUserDto);
+
+            if(parsedUserDto.getTelegramId()==0){
+               final User user = userDao.findByPhone(parsedUserDto.getPhone());
+               final String link = url + botUserName;
+               emailService.sendInvitationToTelegramEmail(user.getEmail(),link);
+            } else {
+                u.setTelegramChatId(parsedUserDto.getTelegramId());
+            }
         }
 
-        return list.stream().map(this::updateUser).collect(Collectors.toList());
+        list.forEach(this::updateUser);
     }
 
 }
+
+

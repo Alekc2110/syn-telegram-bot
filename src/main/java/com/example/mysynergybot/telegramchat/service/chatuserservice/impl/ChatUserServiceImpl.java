@@ -35,15 +35,11 @@ public class ChatUserServiceImpl implements ChatUserService {
     }
 
     @Override
-    public boolean hasChatUser(User user) {
-        return getChatUsersList().stream().anyMatch(a-> a.getTelegramId().equals(user.getId()));
+    public boolean hasChatUser(Long telegramId) {
+        return chatUserDao.findAll().stream().anyMatch(a-> a.getTelegramId().longValue()==telegramId);
     }
 
-    @Override
-    public String getUserName(User user) {
-        return getChatUsersList().stream().filter(u-> u.getFirstName().equals(user.getFirstName())).map(ChatUserDto::getFirstName)
-                .findFirst().orElse("");
-    }
+
 
 
     @Override
@@ -53,25 +49,10 @@ public class ChatUserServiceImpl implements ChatUserService {
     }
 
     @Override
-    public void updateChatUserName(User user) {
-        chatUserDao.findById(user.getId().longValue()).ifPresent(chatUser -> chatUser.setFirstName(user.getFirstName()));
+    public void updateChatUser(ChatUserDto user) {
+        chatUserDao.save(mapperFacade.map(user, ChatUser.class));
 
     }
-
-//    @Override
-//    public List<ChatUser> findUsersWithOverdueGoals() {
-//        List<Game> all = gameDao.findAll();
-//
-//
-//
-//
-//        List<Goal> sortedGoals = goalDao.findAll()
-//                .stream().filter(goal -> goal.getStatus().equals(GoalStatus.ACTIVE) && goal.getFinishTime()
-//                        .isAfter(LocalDateTime.now())).collect(Collectors.toList());
-//
-//        return null;
-//    }
-
 
 }
 

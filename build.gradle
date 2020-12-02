@@ -30,6 +30,8 @@ dependencies {
     compile group: 'org.telegram', name: 'telegrambots', version: '4.9.2'
     // https://mvnrepository.com/artifact/org.telegram/telegrambotsextensions
     compile group: 'org.telegram', name: 'telegrambotsextensions', version: '4.9.2'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.3.4.RELEASE'
+    //testCompile group: 'com.icegreen', name: 'greenmail', version: '1.6.0'
 
 
     compile group: 'commons-validator', name: 'commons-validator', version: '1.7'

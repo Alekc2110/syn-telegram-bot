@@ -1,6 +1,9 @@
 package com.example.mysynergybot.telegramchat.service.chatuserservice.impl;
 
+import com.example.mysynergybot.telegramchat.entity.dto.ParseResultDto;
+import com.example.mysynergybot.telegramchat.service.chatuserservice.ParseService;
 import com.example.mysynergybot.telegramchat.service.chatuserservice.TelegramBotApiService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -11,8 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class TelegramBotApiServiceImpl implements TelegramBotApiService {
 
     @Value("${telegram.api.url}")
@@ -21,25 +26,19 @@ public class TelegramBotApiServiceImpl implements TelegramBotApiService {
     private String botToken;
 
     private final RestTemplate restTemplate;
-
-    public TelegramBotApiServiceImpl(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
+    private final ParseService parseService;
 
 
     @Override
-    public String getUserIdFromTelegram(Long chatId, String phone, String firstName) {
+    public ParseResultDto getUserIdFromTelegram(Long telId, String phone, String firstName) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(apiUrl)
                 .path(botToken)
-                .path("/sendContact").queryParam("chat_id", chatId)
+                .path("/sendContact").queryParam("chat_id", telId)
                 .queryParam("phone_number", phone)
                 .queryParam("first_name", firstName);
-
-//        ResponseEntity<Contact> responseContact = restTemplate.getForEntity(builder.toUriString(), Contact.class);
-//        log.info("TelegramBotApiService returned contact - {}", responseContact.toString());
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
@@ -48,7 +47,7 @@ public class TelegramBotApiServiceImpl implements TelegramBotApiService {
                 HttpMethod.GET,
                 entity,
                 String.class);
- //         return responseContact.getHeaders().getFirst("user_id");
-        return response.getBody();
+
+        return parseService.parse(response.getBody());
     }
 }

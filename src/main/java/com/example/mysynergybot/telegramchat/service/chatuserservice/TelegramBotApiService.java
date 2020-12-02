@@ -1,7 +1,10 @@
 package com.example.mysynergybot.telegramchat.service.chatuserservice;
 
+import com.example.mysynergybot.telegramchat.entity.dto.ParseResultDto;
+
 public interface TelegramBotApiService {
 
-    String getUserIdFromTelegram(Long chatId, String phone, String firstName);
+    ParseResultDto getUserIdFromTelegram(Long telId, String phone, String firstName);
+
 
 }

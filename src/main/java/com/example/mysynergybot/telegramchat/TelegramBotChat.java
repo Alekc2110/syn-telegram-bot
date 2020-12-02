@@ -83,7 +83,7 @@ public class TelegramBotChat extends TelegramLongPollingBot {
           chatService.addChatUser(newUser);
 
        }
-       receiveQueue.add(update);
+     //  receiveQueue.add(update);
 
        log.info("update - {} message.chat -{} message.contact -{} message.getFrom - {} getText - {}",
                 update.getUpdateId() + "\n", update.getMessage().getChat().toString() + "\n",

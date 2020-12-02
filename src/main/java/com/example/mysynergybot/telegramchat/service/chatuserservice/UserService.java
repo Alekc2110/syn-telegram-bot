@@ -37,7 +37,7 @@ public interface UserService {
 
     List<UserDto> findUsersWithNullTelegramChatId();
 
-    List<UserDto> getTelegramIdAndUpdateUser(List<UserDto> list);
+    void getTelegramIdAndUpdateUser(List<UserDto> list);
 
 }
 

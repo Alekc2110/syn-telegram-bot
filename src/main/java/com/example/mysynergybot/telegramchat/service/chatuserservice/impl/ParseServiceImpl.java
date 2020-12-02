@@ -32,7 +32,7 @@ public class ParseServiceImpl implements ParseService {
 
             parseResultDto.setTelegramId(user_id.asLong());
             parseResultDto.setFirstName(first_name.asText());
-            parseResultDto.setPhone(phone_number.asText());
+            parseResultDto.setPhone("+" + phone_number.asText());
         } catch (JsonProcessingException e) {
             log.info("IOException when parsing - {}", e.getMessage());
         }

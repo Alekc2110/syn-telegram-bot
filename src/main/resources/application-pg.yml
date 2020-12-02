@@ -1,11 +1,11 @@
 spring:
-  # Database
+# Database
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:8090/test
     username: postgres
     password: root
-    # JPA properties
+# JPA properties
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -14,7 +14,45 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQL10Dialect
     open-in-view: false
     generate-ddl: true
+# mail properties
+  mail:
+      host: smtp.gmail.com
+      port: 587
+      username: alalexalexal@gmail.com
+      password: alexAl2110
+      properties:
+        mail:
+          smtp:
+            auth: true
+            starttls:
+              enable: true
+            connectiontimeout: 5000
+            timeout: 3000
+            writetimeout: 5000
 
+telegram:
+  invitation:
+      subject: Synergy invited you to join the Telegram Bot
+      text: Please click on the link below to accept invitation and start Telegram Bot.
+      url: https://msngr.link/tg/
+  username: Kamillahelp_bot
+  token: 1448566988:AAHsOmGSR3CIT8nmHOA8Im1sdLdWF12S920
+  notifytext: Your Goal - "%s" is FAILED!
+  api:
+      url: https://api.telegram.org/bot
+      requestTemplate: /sendContact?chat_id={}&phone_number={}&first_name={}
+
+#scheduling properties
+dbscheduler:
+      pickAndSortFinishedGoals:
+        delay: 0 0/1 * * * *
+      updateUserWithNullTelegramId:
+        delay: 0/30 * * * * *
+scheduling:
+        enabled: true
 
 server:
   port: 8081
+
+
+

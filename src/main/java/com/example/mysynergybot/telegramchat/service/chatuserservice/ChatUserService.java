@@ -9,10 +9,9 @@ import java.util.List;
 public interface ChatUserService {
     void removeChatUser(User user);
     boolean addChatUser(ChatUserDto chatUserDto);
-    boolean hasChatUser(User user);
-    String getUserName(User user);
+    boolean hasChatUser(Long chatUserId);
     List<ChatUserDto> getChatUsersList();
-    void updateChatUserName(User user);
-    //List<ChatUser> findUsersWithOverdueGoals();
+    void updateChatUser(ChatUserDto user);
+
 
    }
