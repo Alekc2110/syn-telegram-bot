@@ -63,6 +63,6 @@ public class User {
     private List<Role> roles;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Set<Goal> goals = new HashSet<>();
+    private final Set<Goal> goals = new HashSet<>();
 
 }

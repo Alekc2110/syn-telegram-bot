@@ -28,7 +28,10 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
 //    // https://mvnrepository.com/artifact/org.telegram/telegrambots
 //    compile group: 'org.telegram', name: 'telegrambots', version: '4.9.2'
-    compile group: 'org.telegram', name: 'telegrambots-spring-boot-starter', version: '4.1.2'
+//    compile group: 'org.telegram', name: 'telegrambots-spring-boot-starter', version: '4.1.2'
+    // https://mvnrepository.com/artifact/org.telegram/telegrambots-spring-boot-starter
+    compile group: 'org.telegram', name: 'telegrambots-spring-boot-starter', version: '5.0.1'
+
     // https://mvnrepository.com/artifact/org.telegram/telegrambotsextensions
     //compile group: 'org.telegram', name: 'telegrambotsextensions', version: '4.9.2'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.3.4.RELEASE'

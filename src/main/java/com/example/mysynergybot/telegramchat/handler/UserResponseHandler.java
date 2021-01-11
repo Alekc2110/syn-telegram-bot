@@ -37,10 +37,10 @@ public class UserResponseHandler {
  }
 
  private SendMessage createMessage(UserResponseDto user) {
-     SendMessage message = new SendMessage();
-     message.setChatId(user.getTelegramChatId());
-     message.setText(String.format(NOTIFY_USER_FOR_OVERDUE_GOAL, user.getGoalDescription()));
-     return message;
+     return SendMessage.builder()
+             .chatId(String.valueOf(user.getTelegramChatId()))
+             .text(String.format(NOTIFY_USER_FOR_OVERDUE_GOAL, user.getGoalDescription()))
+             .build();
  }
 
  private boolean verifyUser(UserResponseDto user){
