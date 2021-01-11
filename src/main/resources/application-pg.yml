@@ -19,7 +19,7 @@ spring:
       host: smtp.gmail.com
       port: 587
       username: alalexalexal@gmail.com
-      password: alexAl2110
+      password:
       properties:
         mail:
           smtp:
@@ -35,8 +35,8 @@ telegram:
       subject: Synergy invited you to join the Telegram Bot
       text: Please click on the link below to accept invitation and start Telegram Bot.
       url: https://msngr.link/tg/
-  username: mySynTest_bot
-  token: 1565533515:AAFXj7NICDuOo1rHeG_MJJemyS48wF535qg
+  username:
+  token:
   notifytext: Your Goal - "%s" is FAILED!
   api:
       url: https://api.telegram.org/bot
