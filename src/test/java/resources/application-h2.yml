@@ -26,7 +26,7 @@ spring:
       subject: Synergy invited you to join the Telegram Bot
       text: Please click on the link below to accept invitation and start Telegram Bot.
       url: https://msngr.link/tg/
-    username: SynergyTesting_bot
+    username:
     token: 1475362966:AAHladkie4ePd49OSkEbHf7Tctff616td6o
     notifytext: Your Goal - "%s" is FAILED!
     api:
