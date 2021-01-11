@@ -1,0 +1,36 @@
+#server:
+#  port: 8082
+
+# Spring Boot configuration
+spring:
+  # Database
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false;
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 2
+  # JPA properties
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    database: h2
+    database-platform: org.hibernate.dialect.H2Dialect
+    open-in-view: false
+    generate-ddl: true
+
+  # Telegram properties
+  telegram:
+    invitation:
+      subject: Synergy invited you to join the Telegram Bot
+      text: Please click on the link below to accept invitation and start Telegram Bot.
+      url: https://msngr.link/tg/
+    username: SynergyTesting_bot
+    token: 1475362966:AAHladkie4ePd49OSkEbHf7Tctff616td6o
+    notifytext: Your Goal - "%s" is FAILED!
+    api:
+      url: https://api.telegram.org/bot
+    #any user who started the bot
+    user:
+      forContact: 825619647

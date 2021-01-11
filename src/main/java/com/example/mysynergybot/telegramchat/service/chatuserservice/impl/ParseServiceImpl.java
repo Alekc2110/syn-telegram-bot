@@ -23,6 +23,7 @@ public class ParseServiceImpl implements ParseService {
     public ParseResultDto parse(String str) {
         ParseResultDto parseResultDto = new ParseResultDto();
         try {
+
             JsonNode root = mapper.readTree(str);
             JsonNode result = root.path("result");
             JsonNode contact = result.path("contact");

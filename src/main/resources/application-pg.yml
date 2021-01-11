@@ -35,19 +35,20 @@ telegram:
       subject: Synergy invited you to join the Telegram Bot
       text: Please click on the link below to accept invitation and start Telegram Bot.
       url: https://msngr.link/tg/
-  username: Kamillahelp_bot
-  token: 1448566988:AAHsOmGSR3CIT8nmHOA8Im1sdLdWF12S920
+  username: mySynTest_bot
+  token: 1565533515:AAFXj7NICDuOo1rHeG_MJJemyS48wF535qg
   notifytext: Your Goal - "%s" is FAILED!
   api:
       url: https://api.telegram.org/bot
-      requestTemplate: /sendContact?chat_id={}&phone_number={}&first_name={}
-
+#      requestTemplate: /sendContact?chat_id={}&phone_number={}&first_name={}
+  user:
+    forContact: 825619647
 #scheduling properties
 dbscheduler:
       pickAndSortFinishedGoals:
-        delay: 0 0/1 * * * *
+        delay: 0 */1 * ? * *
       updateUserWithNullTelegramId:
-        delay: 0/30 * * * * *
+        delay: 0 */2 * ? * *
 scheduling:
         enabled: true
 

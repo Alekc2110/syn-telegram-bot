@@ -11,10 +11,10 @@ import org.springframework.web.client.RestTemplate;
 @SQLInsert(sql = "import.sql")
 public class BotConfig {
 
-    @Bean
-    public MessageReceiver messageReceiver() {
-        return new MessageReceiver();
-    }
+//    @Bean
+//    public MessageReceiver messageReceiver() {
+//        return new MessageReceiver();
+//    }
 
     @Bean
     public MessageSender messageSender(){
@@ -22,15 +22,15 @@ public class BotConfig {
     }
 
 
-    @Bean
-    public Thread createThreadReceiver(){
-        Thread receiver = new Thread(messageReceiver());
-        receiver.setDaemon(true);
-        receiver.setName("MsgReciever");
-        receiver.setPriority(3);
-        receiver.start();
-        return receiver;
-    }
+//    @Bean
+//    public Thread createThreadReceiver(){
+//        Thread receiver = new Thread(messageReceiver());
+//        receiver.setDaemon(true);
+//        receiver.setName("MsgReciever");
+//        receiver.setPriority(3);
+//        receiver.start();
+//        return receiver;
+//    }
 
     @Bean
     public Thread createThreadSender(){

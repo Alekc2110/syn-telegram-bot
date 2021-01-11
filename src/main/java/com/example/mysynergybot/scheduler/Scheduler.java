@@ -13,13 +13,13 @@ import java.util.List;
 
 @Component
 @Slf4j
-public class DbScheduler {
+public class Scheduler {
 
     private final UserService userService;
     private final UserResponseHandler userResponseHandler;
 
 
-    public DbScheduler(UserService userService, UserResponseHandler userResponseHandler) {
+    public Scheduler(UserService userService, UserResponseHandler userResponseHandler) {
         this.userService = userService;
         this.userResponseHandler = userResponseHandler;
     }

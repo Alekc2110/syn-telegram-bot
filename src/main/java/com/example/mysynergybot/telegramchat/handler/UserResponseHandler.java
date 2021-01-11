@@ -44,7 +44,8 @@ public class UserResponseHandler {
  }
 
  private boolean verifyUser(UserResponseDto user){
-     return user.getTelegramChatId() != null && user.getTelegramChatId() != 0;
+     return user.getTelegramChatId() != null;
+     //&& user.getTelegramChatId() != 0
  }
 
 }

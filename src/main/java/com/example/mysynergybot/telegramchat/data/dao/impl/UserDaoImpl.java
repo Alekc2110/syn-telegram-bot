@@ -82,4 +82,10 @@ public class UserDaoImpl implements UserDao {
         return userRepository.findUsersWithNullTelegramChatId();
     }
 
+    @Override
+    public User findByTelegramId(Long telegramId) {
+        return userRepository.findByTelegramChatId(telegramId).orElseThrow(()
+                -> new EntityNotFoundException(String.format("User with telegramId '%s' not found", telegramId)));
+    }
+
 }

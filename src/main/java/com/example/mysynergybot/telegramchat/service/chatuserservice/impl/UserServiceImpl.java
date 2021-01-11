@@ -7,10 +7,10 @@ import com.example.mysynergybot.telegramchat.entity.dto.ParseResultDto;
 import com.example.mysynergybot.telegramchat.entity.dto.UserDto;
 import com.example.mysynergybot.telegramchat.entity.dto.UserResponseDto;
 import com.example.mysynergybot.telegramchat.service.chatuserservice.EmailService;
-import com.example.mysynergybot.telegramchat.service.chatuserservice.ParseService;
 import com.example.mysynergybot.telegramchat.service.chatuserservice.TelegramBotApiService;
 import com.example.mysynergybot.telegramchat.service.chatuserservice.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,14 +28,12 @@ import java.util.stream.Collectors;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
-    @Value("${telegram.api.url}")
-    private String apiUrl;
-    @Value("${telegram.token}")
-    private String botToken;
     @Value("${telegram.username}")
-    private String botUserName;
+    private transient String botUserName;
     @Value("${telegram.invitation.url}")
     private transient String url;
+    @Value("${telegram.user.forContact}")
+    private transient Long contactId;
 
     private final UserDao userDao;
     private final MapperFacade mapperFacade;
@@ -121,11 +120,19 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
+    @SneakyThrows
     @Override
     public void getTelegramIdAndUpdateUser(List<UserDto> list) {
+        log.info("List userDto to update telId - {}", list);
         for (UserDto u : list) {
-            ParseResultDto parsedUserDto = telegramBotApiService.getUserIdFromTelegram(825619647L, u.getPhone(), u.getFirstName());
-            log.info("parsed user - {}", parsedUserDto);
+            TimeUnit.SECONDS.sleep(30);
+//            //check telegramChatId for 0 value if true  -> send email
+//            if(u.getTelegramChatId() == null || u.getTelegramChatId() == 0){
+//                final String link = url + botUserName;
+//                emailService.sendInvitationToTelegramEmail(u.getEmail(),link);
+//            }
+            ParseResultDto parsedUserDto = telegramBotApiService.getUserIdFromTelegram(contactId, u.getPhone(), u.getFirstName());
+            log.info("parsed user - {}", parsedUserDto.toString());
 
             if(parsedUserDto.getTelegramId()==0){
                final User user = userDao.findByPhone(parsedUserDto.getPhone());
@@ -136,7 +143,14 @@ public class UserServiceImpl implements UserService {
             }
         }
 
-        list.forEach(this::updateUser);
+        list.stream().map(this::updateUser).filter(userDto -> userDto.getTelegramChatId()!=null).forEach(System.out::println);
+
+
+    }
+
+    @Override
+    public UserDto findUserByTelegramId(Long telegramId) {
+      return mapperFacade.map(userDao.findByTelegramId(telegramId), UserDto.class);
     }
 
 }

@@ -18,7 +18,7 @@ public class ChatUser {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
     @Column(name = "telegram_user_id", unique = true)
-    private Integer telegramId;
+    private Long telegramId;
     @Column(name = "first_name")
     private String firstName;
 //    @Column(name = "phone_number", unique = true)

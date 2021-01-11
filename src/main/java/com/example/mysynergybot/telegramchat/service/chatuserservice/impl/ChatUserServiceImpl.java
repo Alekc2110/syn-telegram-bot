@@ -9,10 +9,12 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.User;
 
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class ChatUserServiceImpl implements ChatUserService {
 
      private final ChatUserDao chatUserDao;
@@ -25,8 +27,8 @@ public class ChatUserServiceImpl implements ChatUserService {
 
 
     @Override
-    public void removeChatUser(User user) {
-        chatUserDao.deleteById(user.getId().longValue());
+    public void removeChatUser(Long telegramId) {
+        chatUserDao.deleteById(telegramId);
     }
 
     @Override

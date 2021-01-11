@@ -39,5 +39,7 @@ public interface UserService {
 
     void getTelegramIdAndUpdateUser(List<UserDto> list);
 
+    UserDto findUserByTelegramId(Long telegramId);
+
 }
 

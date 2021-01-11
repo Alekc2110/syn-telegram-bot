@@ -33,5 +33,6 @@ public interface UserDao {
 
     List<User> findUsersWithNullTelegramChatId();
 
+    User findByTelegramId(Long telegramId);
 
 }

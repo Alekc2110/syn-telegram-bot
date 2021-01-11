@@ -4,6 +4,7 @@ import com.example.mysynergybot.telegramchat.entity.dto.ChatUserDto;
 import com.example.mysynergybot.telegramchat.service.chatuserservice.ChatUserService;
 import com.example.mysynergybot.telegramchat.service.chatuserservice.TelegramBotApiService;
 import com.example.mysynergybot.telegramchat.service.chatuserservice.UserService;
+import com.sun.jdi.LongValue;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -36,7 +37,7 @@ public class TelegramBotChat extends TelegramLongPollingBot {
     private final TelegramBotApiService telegramBotApiService;
 
 
-    public final Queue<Object> receiveQueue = new ConcurrentLinkedQueue<>();
+//  public final Queue<Object> receiveQueue = new ConcurrentLinkedQueue<>();
     public final Queue<Object> sendQueue = new ConcurrentLinkedQueue<>();
 
 
@@ -47,23 +48,23 @@ public class TelegramBotChat extends TelegramLongPollingBot {
         this.telegramBotApiService = telegramBotApiService;
     }
 
-    @PostConstruct
-    public void botConnect() {
-        TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
-        try {
-            telegramBotsApi.registerBot(this);
-            log.info("[STARTED] TelegramAPI. Bot Connected. Bot class: " + this);
-        } catch (TelegramApiRequestException e) {
-            log.error("Cant Connect. Pause " + RECONNECT_PAUSE / 1000 + "sec and try again. Error: " + e.getMessage());
-            try {
-                Thread.sleep(RECONNECT_PAUSE);
-            } catch (InterruptedException e1) {
-                e1.printStackTrace();
-                return;
-            }
-            botConnect();
-        }
-    }
+//    @PostConstruct
+//    public void botConnect() {
+//        TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
+//        try {
+//            telegramBotsApi.registerBot(this);
+//            log.info("[STARTED] TelegramAPI. Bot Connected. Bot class: " + this);
+//        } catch (TelegramApiRequestException e) {
+//            log.error("Cant Connect. Pause " + RECONNECT_PAUSE / 1000 + "sec and try again. Error: " + e.getMessage());
+//            try {
+//                Thread.sleep(RECONNECT_PAUSE);
+//            } catch (InterruptedException e1) {
+//                e1.printStackTrace();
+//                return;
+//            }
+//            botConnect();
+//        }
+//    }
 
 
     @Override
@@ -73,7 +74,8 @@ public class TelegramBotChat extends TelegramLongPollingBot {
             throw new IllegalStateException("Update doesn't have a body!");
         }
         User from = update.getMessage().getFrom();
-       if(update.getMessage().getText().equals("/start")){
+        log.info("user {} sent message ", from);
+       if(!chatService.hasChatUser(from.getId().longValue())){
 
            ChatUserDto newUser = ChatUserDto.builder()
                    .telegramId(from.getId())
@@ -85,10 +87,10 @@ public class TelegramBotChat extends TelegramLongPollingBot {
        }
      //  receiveQueue.add(update);
 
-       log.info("update - {} message.chat -{} message.contact -{} message.getFrom - {} getText - {}",
+       log.info("update - {} message.chat -{} message.contact -{} message.getFrom - {} getText - {} update - {}",
                 update.getUpdateId() + "\n", update.getMessage().getChat().toString() + "\n",
                 update.getMessage().getContact() + "\n", update.getMessage().getFrom() + "\n",
-                update.getMessage().getText());
+                update.getMessage().getText() + "\n", update.toString());
 
        }
 

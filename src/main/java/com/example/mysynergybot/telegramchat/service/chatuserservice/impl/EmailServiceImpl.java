@@ -29,7 +29,7 @@ public class EmailServiceImpl implements EmailService {
             mailMessage.setTo(userMail);
             mailMessage.setSubject(invSubject);
             mailMessage.setFrom(mail);
-            mailMessage.setText(String.format("%s\n\n %s", invText, invLink));
+            mailMessage.setText(String.format("%s %s", invText, invLink));
             javaMailSender.send(mailMessage);
 
     }

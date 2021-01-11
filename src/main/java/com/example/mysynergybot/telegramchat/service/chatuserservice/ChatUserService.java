@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public interface ChatUserService {
-    void removeChatUser(User user);
+    void removeChatUser(Long telegramId);
     boolean addChatUser(ChatUserDto chatUserDto);
     boolean hasChatUser(Long chatUserId);
     List<ChatUserDto> getChatUsersList();

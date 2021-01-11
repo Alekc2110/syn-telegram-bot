@@ -31,5 +31,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select u from User u where u.telegramChatId IS NULL")
     List<User> findUsersWithNullTelegramChatId();
 
+    Optional<User> findByTelegramChatId(long telegramId);
 
 }

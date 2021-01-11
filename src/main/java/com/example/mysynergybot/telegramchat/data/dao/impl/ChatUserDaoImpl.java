@@ -36,6 +36,6 @@ public class ChatUserDaoImpl implements ChatUserDao {
 
     @Override
     public void deleteById(Long id) {
-      chatUserRepository.deleteById(id);
+      chatUserRepository.deleteChatUserByTelegramId(id);
     }
 }
