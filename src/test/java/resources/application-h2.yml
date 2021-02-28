@@ -27,10 +27,13 @@ spring:
       text: Please click on the link below to accept invitation and start Telegram Bot.
       url: https://msngr.link/tg/
     username:
-    token: 1475362966:AAHladkie4ePd49OSkEbHf7Tctff616td6o
+    token:
     notifytext: Your Goal - "%s" is FAILED!
     api:
       url: https://api.telegram.org/bot
     #any user who started the bot
     user:
-      forContact: 825619647
+      forContact: 956964015
+
+#      kievstar telId - 956964015
+#      mtc telid - 825619647

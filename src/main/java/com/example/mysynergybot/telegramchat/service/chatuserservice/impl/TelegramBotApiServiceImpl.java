@@ -48,6 +48,8 @@ public class TelegramBotApiServiceImpl implements TelegramBotApiService {
                 entity,
                 String.class);
 
-        return parseService.parse(response.getBody());
+        ParseResultDto parsedUser = parseService.parse(response.getBody());
+        log.info("parsed user returned from Telegram - {}", parsedUser);
+        return parsedUser;
     }
 }

@@ -2,7 +2,7 @@ spring:
 # Database
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:8090/test
+    url: jdbc:postgresql://localhost:5234/test
     username: postgres
     password: root
 # JPA properties
@@ -19,7 +19,7 @@ spring:
       host: smtp.gmail.com
       port: 587
       username: alalexalexal@gmail.com
-      password:
+      password: alexAl2110
       properties:
         mail:
           smtp:
@@ -35,20 +35,20 @@ telegram:
       subject: Synergy invited you to join the Telegram Bot
       text: Please click on the link below to accept invitation and start Telegram Bot.
       url: https://msngr.link/tg/
-  username:
-  token:
+  username: SynTestTelegram_bot
+  token: 1697376349:AAHT3OkNetvyMOA20gykX8WL6Y313_qNp1I
   notifytext: Your Goal - "%s" is FAILED!
   api:
       url: https://api.telegram.org/bot
 #      requestTemplate: /sendContact?chat_id={}&phone_number={}&first_name={}
   user:
-    forContact: 825619647
+    forContact: 956964015
 #scheduling properties
 dbscheduler:
       pickAndSortFinishedGoals:
-        delay: 0 */1 * ? * *
+        delay: 0 */7 * ? * *
       updateUserWithNullTelegramId:
-        delay: 0 */2 * ? * *
+        delay: 0 */9 * ? * *
 scheduling:
         enabled: true
 

@@ -132,7 +132,7 @@ public class UserServiceImpl implements UserService {
 //                emailService.sendInvitationToTelegramEmail(u.getEmail(),link);
 //            }
             ParseResultDto parsedUserDto = telegramBotApiService.getUserIdFromTelegram(contactId, u.getPhone(), u.getFirstName());
-            log.info("parsed user - {}", parsedUserDto.toString());
+
 
             if(parsedUserDto.getTelegramId()==0){
                final User user = userDao.findByPhone(parsedUserDto.getPhone());

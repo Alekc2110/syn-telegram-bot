@@ -4,7 +4,6 @@ import com.example.mysynergybot.telegramchat.entity.dto.ChatUserDto;
 import com.example.mysynergybot.telegramchat.service.chatuserservice.ChatUserService;
 import com.example.mysynergybot.telegramchat.service.chatuserservice.TelegramBotApiService;
 import com.example.mysynergybot.telegramchat.service.chatuserservice.UserService;
-import com.sun.jdi.LongValue;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -47,7 +46,7 @@ public class TelegramBotChat extends TelegramLongPollingBot {
 
         this.telegramBotApiService = telegramBotApiService;
     }
-
+//
 //    @PostConstruct
 //    public void botConnect() {
 //        TelegramBotsApi telegramBotsApi = new TelegramBotsApi();

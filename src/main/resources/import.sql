@@ -1,6 +1,7 @@
-insert into users (id,email, gender, first_name, phone, already_registered, is_active, telegram_id) values ('1','0509135146o@gmail.com','MALE', 'ALeksander','+380985590167','true','true','956964015');
-insert into users (id,email, gender, first_name, phone, already_registered, is_active, telegram_id) values ('2','0504268686@ukr.net','FEMALE', 'Oksana', '+380509135146','true','true', '905529114');
-insert into users (id,email, gender, first_name, phone, already_registered, is_active) values ('3','alalexalexal@gmail.com','FEMALE', 'Anna','+380502676975', 'true','true');
+insert into users (id,email, gender, first_name, phone, already_registered, is_active, telegram_id) values
+('1','0509135146o@gmail.com','MALE', 'ALeksander','+380504430812','true','true', null),
+('2','0504268686@ukr.net','FEMALE', 'Oksana', '+380509135146','true','true', '905529114'),
+('3','alalexalexal@gmail.com','FEMALE', 'Anna','+380502676975', 'true','true', null);
 -- insert into users (id,email, gender, first_name, phone, already_registered, is_active) values ('4','gorenje.don@gmail.com','MALE', 'Kolya','+380509988450', 'true','true');
 -- insert into users (id,email, gender, first_name, phone, already_registered, is_active) values ('5','gri@i.ua','MALE', 'Sasha','+380939363668', 'true','true');
 
